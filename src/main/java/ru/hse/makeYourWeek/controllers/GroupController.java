@@ -1,7 +1,5 @@
 package ru.hse.makeYourWeek.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,65 +11,59 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.ApplicationContextHolder;
-import ru.hse.makeYourWeek.dao.Teacher;
-import ru.hse.makeYourWeek.repository.TeacherRepo;
-import ru.hse.makeYourWeek.services.TeacherService;
+import ru.hse.makeYourWeek.dao.Group;
+import ru.hse.makeYourWeek.repository.GroupRepo;
+import ru.hse.makeYourWeek.services.GroupService;
 
 import java.io.IOException;
 
 @Controller
-@FxmlView("teachers.fxml")
-public class TeacherController {
-
+@FxmlView("groups.fxml")
+public class GroupController {
     public Button mainButton;
-
-    public Button groupsButton;
+    @FXML
+    public TableView<Group> groupTableView;
+    @FXML
+    public TableColumn<Group, Integer> id;
+    @FXML
+    public TableColumn<Group, String> name;
+    public Button teachersButton;
     public Button timeTableButton;
-    private ObservableList<Teacher> teachers = FXCollections.observableArrayList();
-    @FXML
-    private TableView<Teacher> teacherTableView;
-    @FXML
-    private TableColumn<Teacher, String> name;
-    @FXML
-    private TableColumn<Teacher, Integer> id;
 
     @Autowired
-    private TeacherService teacherService;
-
-    /*public void onShowDataButtonClick() {
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        teacherTableView.getItems().clear();
-        // заполняем таблицу данными
-        teacherTableView.getItems().addAll(teacherService.getAll());
-        *//*teacherTableView.setItems(teachers);
-        teachers.addAll(teacherService.getAll());*//*
-    }*/
+    private GroupService groupService;
 
     @FXML
     private void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        teacherTableView.getItems().clear();
+        groupTableView.getItems().clear();
         // заполняем таблицу данными
-        teacherTableView.getItems().addAll(teacherService.getAll());
+        groupTableView.getItems().addAll(groupService.getAll());
         /*teacherTableView.setItems(teachers);
         teachers.addAll(teacherService.getAll());*/
     }
 
-    public void onActionMainButtonClick(ActionEvent event) throws IOException{
+    /*public void onShowDataButtonClick(ActionEvent event) {
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        groupTableView.getItems().clear();
+        // заполняем таблицу данными
+        groupTableView.getItems().addAll(groupService.getAll());
+        *//*groupTableView.setItems(groups);
+        groups.addAll(groupService.getAll());*//*
+    }*/
+
+    public void onActionMainButtonClick(ActionEvent event) throws IOException {
         changeTab(mainButton, "main.fxml");
     }
 
-    public void onActionGroupsButtonClick(ActionEvent event) throws IOException{
-        changeTab(groupsButton, "groups.fxml");
+    public void onActionTeachersButtonClick(ActionEvent event) throws IOException {
+        changeTab(teachersButton, "teachers.fxml");
     }
 
     public void onActionTimeTableButtonClick(ActionEvent event) throws IOException{

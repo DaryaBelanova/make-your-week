@@ -1,8 +1,6 @@
 package ru.hse.makeYourWeek.controllers;
 
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,21 +14,15 @@ import ru.hse.makeYourWeek.ApplicationContextHolder;
 import java.io.IOException;
 
 @Controller
-@FxmlView("main.fxml")
-public class MainController {
-
-    @FXML
-    public javafx.scene.control.Button teachersButton;
+@FxmlView("timeTable.fxml")
+public class TimeTableController {
+    public Button mainButton;
+    public Button teachersButton;
     public Button groupsButton;
-    public Button timeTableButton;
+    public Button generateButton;
 
-    public void loadView(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("main.fxml"));
-        fxmlLoader.setControllerFactory(ApplicationContextHolder.getApplicationContext()::getBean);
-        Scene scene = new Scene(fxmlLoader.load(),620,480);
-        stage.setTitle("ПоНедельник");
-        stage.setScene(scene);
-        stage.show();
+    public void onActionMainButtonClick(ActionEvent event) throws IOException {
+        changeTab(mainButton, "main.fxml");
     }
 
     public void onActionTeachersButtonClick(ActionEvent event) throws IOException {
@@ -38,12 +30,14 @@ public class MainController {
     }
 
     public void onActionGroupsButtonClick(ActionEvent event) throws IOException {
-        changeTab(teachersButton, "groups.fxml");
+        changeTab(groupsButton, "groups.fxml");
     }
-    public void onActionTimeTableButtonClick(ActionEvent event) throws IOException {
-        changeTab(timeTableButton, "timeTable.fxml");
+
+    public void onActionGenerateButtonClick(ActionEvent event) {
+
     }
-    private void changeTab(Button onClick, String fxmlFileName) throws IOException{
+
+    private void changeTab(Button onClick, String fxmlFileName) throws IOException {
         //Close current
         Stage stage = (Stage) onClick.getScene().getWindow();
         // do what you have to do

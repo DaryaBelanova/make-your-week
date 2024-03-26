@@ -23,13 +23,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.hse.makeYourWeek.controllers.MainController;
 import net.rgielen.fxweaver.core.FxWeaver;
+import ru.hse.makeYourWeek.controllers.TeacherController;
 import ru.hse.makeYourWeek.model.GroupsGraph;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
 import ru.hse.makeYourWeek.repository.*;
 import ru.hse.makeYourWeek.services.ColorService;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.net.URL;
 
 @ConfigurationPropertiesScan("ru.hse.makeYourWeek")
 @SpringBootApplication
@@ -65,18 +66,13 @@ public class JavaFXApplication extends Application {
         stage.setScene(scene);
         stage.show();*/
 
-        //new MainController().loadView(stage);
-        applicationContext.getBean(MainController.class).loadView(stage);
+        MainController mainController = applicationContext.getBean(MainController.class);
+        mainController.loadView(stage);
 
-
-        TeacherGroupGraph graph = applicationContext.getBean(TeacherGroupGraph.class);
+        /*TeacherGroupGraph graph = applicationContext.getBean(TeacherGroupGraph.class);
         graph.build();
-        ColorService colorService = applicationContext.getBean(ColorService.class);
+        ColorService colorService = applicationContext.getBean(ColorService.class);*/
         //colorService.colorizeTeacherGroupGraph(graph);
         //colorService.printTimeTableToBD(graph);
-
-        for (TeacherGroupGraph.Vertex vertex : graph.getAdjacencyList()) {
-            System.out.println(vertex.getValue().toString() + Arrays.toString(vertex.getColors().toArray()));
-        }
     }
 }

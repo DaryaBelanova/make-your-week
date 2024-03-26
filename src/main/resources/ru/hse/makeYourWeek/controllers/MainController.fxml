@@ -98,8 +98,7 @@
                         </AnchorPane>
                         <ButtonBar layoutX="25.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0">
                             <buttons>
-                                <Button mnemonicParsing="false" text="Отобразить данные из базы"
-                                        onAction="#onShowTeachersButtonClick"/>
+                                <Button mnemonicParsing="false" text="Отобразить данные из базы"/>
                             </buttons>
                         </ButtonBar>
                     </children>
