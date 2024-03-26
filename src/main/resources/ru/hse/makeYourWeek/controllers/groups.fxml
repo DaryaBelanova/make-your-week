@@ -30,7 +30,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button mnemonicParsing="false" text="Загрузить новый список в базу" GridPane.columnIndex="1" />
+                        <Button fx:id="uploadButton" mnemonicParsing="false" text="Загрузить новый список в базу" onAction="#onActionUploadButtonClick" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
                 <TableView fx:id="groupTableView" layoutX="43.0" layoutY="128.0" prefHeight="246.0" prefWidth="523.0">

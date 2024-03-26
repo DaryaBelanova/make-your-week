@@ -45,7 +45,7 @@ CREATE TABLE groups
     name                VARCHAR(50)           NOT NULL
 );
 
-CREATE TABLE teachers_time_constraints
+/*CREATE TABLE teachers_time_constraints
 (
     id                    SERIAL            NOT NULL PRIMARY KEY,
     teacher_id            INTEGER,
@@ -63,7 +63,7 @@ CREATE TABLE groups_time_constraints
     time_constraints_id   INTEGER,
     FOREIGN KEY       (time_constraints_id) REFERENCES lesson_times (id),
     UNIQUE (group_id, time_constraints_id)
-);
+);*/
 
 CREATE TABLE teachers_groups
 (

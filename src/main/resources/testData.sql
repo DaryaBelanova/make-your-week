@@ -1,9 +1,9 @@
 DELETE FROM timetable;
 DELETE FROM groups_groups;
-DELETE FROM groups_time_constraints;
+/*DELETE FROM groups_time_constraints;*/
 DELETE FROM teachers_groups;
 DELETE FROM groups;
-DELETE FROM teachers_time_constraints;
+/*DELETE FROM teachers_time_constraints;*/
 DELETE FROM teachers;
 DELETE FROM lesson_times;
 /*DELETE FROM days;*/
