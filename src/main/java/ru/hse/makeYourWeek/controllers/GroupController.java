@@ -20,6 +20,7 @@ import ru.hse.makeYourWeek.entities.GroupsAdjacencyPair;
 import ru.hse.makeYourWeek.services.GroupService;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @FxmlView("groups.fxml")
@@ -31,6 +32,8 @@ public class GroupController {
     public TableColumn<Group, Integer> id;
     @FXML
     public TableColumn<Group, String> name;
+    @FXML
+    public TableColumn adjacency;
 
     public Button teachersButton;
     public Button timeTableButton;

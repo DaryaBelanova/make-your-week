@@ -38,7 +38,7 @@ public class MainController {
     }
 
     public void onActionGroupsButtonClick(ActionEvent event) throws IOException {
-        changeTab(teachersButton, "groups.fxml");
+        changeTab(groupsButton, "groups.fxml");
     }
     public void onActionTimeTableButtonClick(ActionEvent event) throws IOException {
         changeTab(timeTableButton, "timeTable.fxml");

@@ -15,4 +15,12 @@ public class GroupService {
     public List<Group> getAll() {
         return groupRepo.findAll();
     }
+
+    public Group getById(Integer id) {
+        return groupRepo.getById(id);
+    }
+
+    public Group get(Integer id) {
+        return groupRepo.findById(id).orElse(null);
+    }
 }
