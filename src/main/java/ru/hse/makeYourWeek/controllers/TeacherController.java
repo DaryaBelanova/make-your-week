@@ -13,15 +13,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.ApplicationContextHolder;
-import ru.hse.makeYourWeek.dao.Teacher;
-import ru.hse.makeYourWeek.repository.TeacherRepo;
+import ru.hse.makeYourWeek.entities.Teacher;
 import ru.hse.makeYourWeek.services.TeacherService;
 
 import java.io.IOException;

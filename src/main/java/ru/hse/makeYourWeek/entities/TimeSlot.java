@@ -1,4 +1,4 @@
-package ru.hse.makeYourWeek.dao;
+package ru.hse.makeYourWeek.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,35 +12,30 @@ import lombok.Setter;
 import java.util.Objects;
 
 @Entity
-@Table(name = "teachers")
+@Table(name = "lesson_times")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Teacher {
+public class TimeSlot {
     @Id
     @Column(name = "id")
     private Integer id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "working_hours")
-    private Integer workingHours;
-
-    public Teacher(String name, Integer workingHours) {
-        this.name = name;
-        this.workingHours = workingHours;
-    }
+    @Column(name = "lesson_number")
+    private Integer lessonNumber;
+    @Column(name = "in_day")
+    private String inDay;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Teacher teacher = (Teacher) o;
-        return Objects.equals(name, teacher.name) && Objects.equals(workingHours, teacher.workingHours);
+        TimeSlot timeSlot = (TimeSlot) o;
+        return Objects.equals(lessonNumber, timeSlot.lessonNumber) && Objects.equals(inDay, timeSlot.inDay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, workingHours);
+        return Objects.hash(lessonNumber, inDay);
     }
 }

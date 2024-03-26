@@ -1,9 +1,8 @@
 package ru.hse.makeYourWeek.services;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hse.makeYourWeek.dao.Teacher;
+import ru.hse.makeYourWeek.entities.Teacher;
 import ru.hse.makeYourWeek.repository.TeacherRepo;
 
 import java.util.List;

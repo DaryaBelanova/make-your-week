@@ -3,14 +3,9 @@ package ru.hse.makeYourWeek.model;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import ru.hse.makeYourWeek.dao.GroupsAdjacencyPair;
-import ru.hse.makeYourWeek.dao.TeacherGroupAdjacency;
-import ru.hse.makeYourWeek.dao.TimeSlot;
-import ru.hse.makeYourWeek.repository.GroupAdjacencyRepo;
-import ru.hse.makeYourWeek.repository.GroupRepo;
+import ru.hse.makeYourWeek.entities.TeacherGroupAdjacency;
+import ru.hse.makeYourWeek.entities.TimeSlot;
 import ru.hse.makeYourWeek.repository.TeacherGroupRepo;
-import ru.hse.makeYourWeek.repository.TeacherRepo;
 
 import java.util.*;
 

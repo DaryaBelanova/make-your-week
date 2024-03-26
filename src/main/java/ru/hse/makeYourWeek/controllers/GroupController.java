@@ -15,8 +15,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.ApplicationContextHolder;
-import ru.hse.makeYourWeek.dao.Group;
-import ru.hse.makeYourWeek.repository.GroupRepo;
+import ru.hse.makeYourWeek.entities.Group;
+import ru.hse.makeYourWeek.entities.GroupsAdjacencyPair;
 import ru.hse.makeYourWeek.services.GroupService;
 
 import java.io.IOException;
@@ -31,6 +31,7 @@ public class GroupController {
     public TableColumn<Group, Integer> id;
     @FXML
     public TableColumn<Group, String> name;
+
     public Button teachersButton;
     public Button timeTableButton;
 

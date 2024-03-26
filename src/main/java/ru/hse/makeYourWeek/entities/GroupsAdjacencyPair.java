@@ -1,4 +1,4 @@
-package ru.hse.makeYourWeek.dao;
+package ru.hse.makeYourWeek.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,35 +8,39 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import java.util.Objects;
 
 @Entity
-@Table(name = "lesson_times")
+@Table(name = "groups_groups")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class TimeSlot {
+public class GroupsAdjacencyPair {
     @Id
     @Column(name = "id")
     private Integer id;
-    @Column(name = "lesson_number")
-    private Integer lessonNumber;
-    @Column(name = "in_day")
-    private String inDay;
+    @Column(name = "group1_id")
+    private Integer group1Id;
+    @Column(name = "group2_id")
+    private Integer group2Id;
+
+    public GroupsAdjacencyPair(Integer group1Id, Integer group2Id) {
+        this.group1Id = group1Id;
+        this.group2Id = group2Id;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TimeSlot timeSlot = (TimeSlot) o;
-        return Objects.equals(lessonNumber, timeSlot.lessonNumber) && Objects.equals(inDay, timeSlot.inDay);
+        GroupsAdjacencyPair that = (GroupsAdjacencyPair) o;
+        return Objects.equals(group1Id, that.group1Id) && Objects.equals(group2Id, that.group2Id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lessonNumber, inDay);
+        return Objects.hash(group1Id, group2Id);
     }
 }

@@ -1,20 +1,14 @@
 package ru.hse.makeYourWeek.services;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import ru.hse.makeYourWeek.dao.TeacherGroupAdjacency;
-import ru.hse.makeYourWeek.dao.TimeSlot;
-import ru.hse.makeYourWeek.dao.TimeTable;
+import ru.hse.makeYourWeek.entities.TimeSlot;
+import ru.hse.makeYourWeek.entities.TimeTable;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
 import ru.hse.makeYourWeek.repository.TimeSlotRepo;
 import ru.hse.makeYourWeek.repository.TimeTableRepo;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Service
 public class ColorService {

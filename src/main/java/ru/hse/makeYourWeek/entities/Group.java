@@ -1,4 +1,4 @@
-package ru.hse.makeYourWeek.dao;
+package ru.hse.makeYourWeek.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
