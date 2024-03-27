@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Controller;
-import ru.hse.makeYourWeek.ApplicationContextHolder;
+import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class MainController {
     }
 
     public void onActionGroupsButtonClick(ActionEvent event) throws IOException {
-        changeTab(groupsButton, "groups.fxml");
+        changeTab(groupsButton, "groupsToDisplay.fxml");
     }
     public void onActionTimeTableButtonClick(ActionEvent event) throws IOException {
         changeTab(timeTableButton, "timeTable.fxml");

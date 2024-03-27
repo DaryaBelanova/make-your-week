@@ -17,10 +17,8 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ru.hse.makeYourWeek.ApplicationContextHolder;
+import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 import ru.hse.makeYourWeek.entities.Group;
-import ru.hse.makeYourWeek.entities.GroupsAdjacencyPair;
-import ru.hse.makeYourWeek.entities.Teacher;
 import ru.hse.makeYourWeek.services.GroupService;
 
 import java.io.File;
@@ -117,7 +115,7 @@ public class GroupController {
                 displayAlert("Ошибка обработки файла", "Ошибка!");
             }
         } else {
-            displayAlert("Ошибка загрузки файла", "Ошибка!");
+            //displayAlert("Ошибка загрузки файла", "Ошибка!");
         }
     }
 

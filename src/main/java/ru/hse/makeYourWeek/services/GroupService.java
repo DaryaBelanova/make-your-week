@@ -23,10 +23,6 @@ public class GroupService {
     }
 
     public Group getById(Integer id) {
-        return groupRepo.getById(id);
-    }
-
-    public Group get(Integer id) {
         return groupRepo.findById(id).orElse(null);
     }
 

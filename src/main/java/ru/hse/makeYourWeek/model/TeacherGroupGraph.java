@@ -21,6 +21,7 @@ public class TeacherGroupGraph {
     public TeacherGroupGraph(TeacherGroupRepo teacherGroupRepo, GroupsGraph groupsGraph) {
         this.teacherGroupRepo = teacherGroupRepo;
         this.groupsGraph = groupsGraph;
+        build();
     }
 
     public void build() {

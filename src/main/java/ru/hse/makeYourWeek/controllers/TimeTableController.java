@@ -8,14 +8,19 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ru.hse.makeYourWeek.ApplicationContextHolder;
+import ru.hse.makeYourWeek.model.TeacherGroupGraph;
+import ru.hse.makeYourWeek.services.ColorService;
+import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.IOException;
 
 @Controller
 @FxmlView("timeTable.fxml")
 public class TimeTableController {
+    @Autowired
+    private ColorService colorService;
     public Button mainButton;
     public Button teachersButton;
     public Button groupsButton;
@@ -30,11 +35,12 @@ public class TimeTableController {
     }
 
     public void onActionGroupsButtonClick(ActionEvent event) throws IOException {
-        changeTab(groupsButton, "groups.fxml");
+        changeTab(groupsButton, "groupsToDisplay.fxml");
     }
 
     public void onActionGenerateButtonClick(ActionEvent event) {
-
+        TeacherGroupGraph teacherGroupGraph = ApplicationContextHolder.getApplicationContext().getBean(TeacherGroupGraph.class);
+        colorService.colorizeTeacherGroupGraph(teacherGroupGraph);
     }
 
     private void changeTab(Button onClick, String fxmlFileName) throws IOException {
