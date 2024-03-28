@@ -15,4 +15,12 @@ public class GroupsAdjacencyService {
     public List<GroupsAdjacencyPair> getAll() {
         return groupAdjacencyRepo.findAll();
     }
+
+    public List<GroupsAdjacencyPair> deleteAndSaveNew(List<GroupsAdjacencyPair> pairs) {
+        groupAdjacencyRepo.deleteAll();
+        for (int i = 0; i < pairs.size(); i++) {
+            pairs.get(i).setId(i + 1);
+        }
+        return groupAdjacencyRepo.saveAll(pairs);
+    }
 }

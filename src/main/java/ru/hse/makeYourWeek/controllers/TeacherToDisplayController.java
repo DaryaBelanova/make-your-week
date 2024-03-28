@@ -1,6 +1,8 @@
 package ru.hse.makeYourWeek.controllers;
 
 import au.com.bytecode.opencsv.CSVReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,20 +12,24 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.DefaultStringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ru.hse.makeYourWeek.entities.Group;
-import ru.hse.makeYourWeek.entities.GroupToDisplay;
-import ru.hse.makeYourWeek.entities.GroupsAdjacencyPair;
+import ru.hse.makeYourWeek.entities.Teacher;
+import ru.hse.makeYourWeek.entities.TeacherGroupAdjacency;
+import ru.hse.makeYourWeek.entities.TeacherToDisplay;
 import ru.hse.makeYourWeek.services.GroupService;
-import ru.hse.makeYourWeek.services.GroupToDisplayService;
-import ru.hse.makeYourWeek.services.GroupsAdjacencyService;
+import ru.hse.makeYourWeek.services.TeacherGroupAdjacencyService;
+import ru.hse.makeYourWeek.services.TeacherService;
+import ru.hse.makeYourWeek.services.TeacherToDisplayService;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.File;
@@ -34,63 +40,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@FxmlView("groupsToDisplay.fxml")
-public class GroupToDisplayController {
+@FxmlView("teachersToDisplay.fxml")
+public class TeacherToDisplayController {
     public Button mainButton;
-    @FXML
-    public TableView<GroupToDisplay> groupToDisplayTableView;
-    @FXML
-    public TableColumn<GroupToDisplay, Integer> id;
-    @FXML
-    public TableColumn<GroupToDisplay, String> name;
-    @FXML
-    public TableColumn<GroupToDisplay, List<Integer>> adjacency;
 
-    @FXML
-    public Button uploadAdjacenciesButton;
-    public Button teachersButton;
+    public Button groupsButton;
     public Button timeTableButton;
     public Button uploadButton;
-    public GridPane gridPane;
+    public AnchorPane anchorPane;
+    public Button uploadGroupsForTeachersButton;
 
+    private ObservableList<Teacher> teachers = FXCollections.observableArrayList();
+    @FXML
+    private TableView<TeacherToDisplay> teacherTableView;
+    @FXML
+    private TableColumn<TeacherToDisplay, String> name;
+    @FXML
+    private TableColumn<TeacherToDisplay, Integer> id;
+    public TableColumn<TeacherToDisplay, VBox> groupsWithCountPerWeek;
+
+    @Autowired
+    private TeacherService teacherService;
+    @Autowired
+    private TeacherToDisplayService teacherToDisplayService;
     @Autowired
     private GroupService groupService;
-
     @Autowired
-    private GroupToDisplayService groupToDisplayService;
-    @Autowired
-    private GroupsAdjacencyService groupsAdjacencyService;
+    private TeacherGroupAdjacencyService teacherGroupAdjacencyService;
 
     @FXML
     private void initialize() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        adjacency.setCellValueFactory(new PropertyValueFactory<>("adjacentGroupsIDs"));
-        displayGroups();
+        //groups.setCellValueFactory(new PropertyValueFactory<>("groups"));
+        groupsWithCountPerWeek.setCellValueFactory(new PropertyValueFactory<>("toDisplay"));
+        displayTeachers();
     }
 
-    private void displayGroups() {
-        groupToDisplayTableView.getItems().clear();
-        groupToDisplayTableView.getItems().addAll(groupToDisplayService.getAll());
+    private void displayTeachers() {
+        teacherTableView.getItems().clear();
+        // заполняем таблицу данными
+        teacherTableView.getItems().addAll(teacherToDisplayService.getAll());
+        /*teacherTableView.setItems(teachers);
+        teachers.addAll(teacherService.getAll());*/
     }
 
     public void onActionMainButtonClick(ActionEvent event) throws IOException {
         changeTab(mainButton, "main.fxml");
     }
 
-    public void onActionTeachersButtonClick(ActionEvent event) throws IOException {
-        changeTab(teachersButton, "teachersToDisplay.fxml");
+    public void onActionGroupsButtonClick(ActionEvent event) throws IOException {
+        changeTab(groupsButton, "groupsToDisplay.fxml");
     }
 
-    public void onActionTimeTableButtonClick(ActionEvent event) throws IOException{
+    public void onActionTimeTableButtonClick(ActionEvent event) throws IOException {
         changeTab(timeTableButton, "timeTable.fxml");
     }
 
-    private void changeTab(Button onClick, String fxmlFileName) throws IOException{
+    private void changeTab(Button onClick, String fxmlFileName) throws IOException {
         //Close current
         Stage stage = (Stage) onClick.getScene().getWindow();
-        // do what you have to do
         stage.close();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFileName));
         fxmlLoader.setControllerFactory(ApplicationContextHolder.getApplicationContext()::getBean);
         Parent root = (Parent) fxmlLoader.load();
@@ -108,29 +119,28 @@ public class GroupToDisplayController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            List<Group> newGroups = new ArrayList<>();
-            List<String> usedNames = new ArrayList<>();
+            List<Teacher> newTeachers = new ArrayList<>();
+            // если ФИО одинаковые, нужно приписать какой-то различитель, например, предмет, который ведет учитель
+            List<String> usedTeachersFio = new ArrayList<>();
             try (CSVReader reader = new CSVReader(new FileReader(selectedFile))) {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
                         Integer id = Integer.valueOf(record[0]);
                         String name = record[1];
-                        if (!isValidGroupName(name)) {
+                        if (usedTeachersFio.contains(name)) {
                             throw new Exception();
                         }
-                        if (usedNames.contains(name)) {
-                            throw new Exception();
-                        }
-                        newGroups.add(new Group(id, name));
-                        usedNames.add(name);
+                        Integer workingHours = Integer.valueOf(record[2]);
+                        newTeachers.add(new Teacher(id, name, workingHours));
+                        usedTeachersFio.add(name);
                     } catch (Exception e) {
                         displayAlert("Ошибка обработки файла", "Ошибка!");
                         return;
                     }
                 }
                 displayAlert("Файл успешно загружен", "Успех!");
-                saveNewGroupsToDB(newGroups);
+                saveNewTeachersToDB(newTeachers);
             } catch (FileNotFoundException e) {
                 displayAlert("Ошибка загрузки файла", "Ошибка!");
             } catch (IOException e) {
@@ -141,48 +151,39 @@ public class GroupToDisplayController {
         }
     }
 
-    private boolean isValidGroupName(String groupName) {
-        for (int i = 0; i < groupName.length(); i++) {
-            if (Character.UnicodeBlock.of(groupName.charAt(i)).equals(Character.UnicodeBlock.CYRILLIC)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void onActionUploadAdjacenciesButtonClick() {
+    public void onActionUploadGroupsForTeachersButtonClick(ActionEvent event) {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showOpenDialog(stage);
-        List<GroupsAdjacencyPair> usedPairs = new ArrayList<>();
         if (selectedFile != null) {
-            List<GroupsAdjacencyPair> newGroupsAdjacencyPairs = new ArrayList<>();
+            List<TeacherGroupAdjacency> newTeacherGroupAdjacencies = new ArrayList<>();
+            List<TeacherGroupAdjacency> used = new ArrayList<>();
+
             try (CSVReader reader = new CSVReader(new FileReader(selectedFile))) {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
-                        Integer firstId = Integer.valueOf(record[0]);
-                        Integer secondId = Integer.valueOf(record[1]);
-                        if (groupService.getById(firstId) == null || groupService.getById(secondId) == null) {
-                            throw new Exception("Группы с таким ID не существует");
+                        Integer teacherId = Integer.valueOf(record[0]);
+                        Integer groupId = Integer.valueOf(record[1]);
+                        Integer countPerWeek = Integer.valueOf(record[2]);
+                        if (teacherService.getById(teacherId) == null || groupService.getById(groupId) == null) {
+                            throw new Exception("Нет учителя или группы с таким ID");
                         }
-                        GroupsAdjacencyPair pair = new GroupsAdjacencyPair(firstId, secondId);
-                        GroupsAdjacencyPair reversed = new GroupsAdjacencyPair(secondId, firstId);
-                        if (usedPairs.contains(pair) || usedPairs.contains(reversed)) {
-                            throw new Exception();
+                        TeacherGroupAdjacency teacherGroupAdjacency = new TeacherGroupAdjacency(teacherId, groupId, countPerWeek);
+                        if (used.contains(teacherGroupAdjacency)) {
+                            throw new Exception("Данная связь уже была внесена");
                         }
-                        usedPairs.add(pair);
-                        usedPairs.add(new GroupsAdjacencyPair(pair.getGroup2Id(), pair.getGroup1Id()));
-                        newGroupsAdjacencyPairs.add(pair);
+                        newTeacherGroupAdjacencies.add(teacherGroupAdjacency);
+                        used.add(teacherGroupAdjacency);
                     } catch (Exception e) {
                         displayAlert("Ошибка обработки файла: " + e.getMessage(), "Ошибка!");
                         return;
                     }
                 }
                 displayAlert("Файл успешно загружен", "Успех!");
-                saveNewGroupsAdjacencyToDB(newGroupsAdjacencyPairs);
+                saveNewTeacherGroupAdjacenciesToDB(newTeacherGroupAdjacencies);
             } catch (FileNotFoundException e) {
                 displayAlert("Ошибка загрузки файла", "Ошибка!");
             } catch (IOException e) {
@@ -193,17 +194,15 @@ public class GroupToDisplayController {
         }
     }
 
-    private void saveNewGroupsToDB(List<Group> groups) {
-        List<Group> saved = groupService.deleteAndSaveNew(groups);
-        //System.out.println(Arrays.toString(saved.toArray()));
-        displayGroups();
+    private void saveNewTeacherGroupAdjacenciesToDB(List<TeacherGroupAdjacency> teacherGroupAdjacencies) {
+        List<TeacherGroupAdjacency> saved = teacherGroupAdjacencyService.deleteAndSaveNew(teacherGroupAdjacencies);
+        displayTeachers();
     }
 
-    private void saveNewGroupsAdjacencyToDB(List<GroupsAdjacencyPair> pairs) {
-        List<GroupsAdjacencyPair> saved = groupsAdjacencyService.deleteAndSaveNew(pairs);
-        displayGroups();
+    private void saveNewTeachersToDB(List<Teacher> teachers) {
+        List<Teacher> saved = teacherService.deleteAndSaveNew(teachers);
+        displayTeachers();
     }
-
     private void displayAlert(String message, String title) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

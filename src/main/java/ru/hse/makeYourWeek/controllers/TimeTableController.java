@@ -13,12 +13,14 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.entities.Group;
+import ru.hse.makeYourWeek.entities.Teacher;
 import ru.hse.makeYourWeek.entities.TeacherGroupAdjacency;
 import ru.hse.makeYourWeek.entities.TimeSlot;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
 import ru.hse.makeYourWeek.repository.GroupRepo;
 import ru.hse.makeYourWeek.services.ColorService;
 import ru.hse.makeYourWeek.services.GroupService;
+import ru.hse.makeYourWeek.services.TeacherService;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.IOException;
@@ -75,6 +77,9 @@ public class TimeTableController {
     private ColorService colorService;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private TeacherService teacherService;
+
     public Button mainButton;
     public Button teachersButton;
     public Button groupsButton;
@@ -85,7 +90,7 @@ public class TimeTableController {
     }
 
     public void onActionTeachersButtonClick(ActionEvent event) throws IOException {
-        changeTab(teachersButton, "teachers.fxml");
+        changeTab(teachersButton, "teachersToDisplay.fxml");
     }
 
     public void onActionGroupsButtonClick(ActionEvent event) throws IOException {
@@ -94,6 +99,7 @@ public class TimeTableController {
 
     public void onActionGenerateButtonClick(ActionEvent event) {
         TeacherGroupGraph teacherGroupGraph = ApplicationContextHolder.getApplicationContext().getBean(TeacherGroupGraph.class);
+        teacherGroupGraph.build();
         /*for (int i = 0; i < teacherGroupGraph.getAdjacencyList().size(); i++) {
             TeacherGroupGraph.Vertex vertex = teacherGroupGraph.getAdjacencyList().get(i);
             System.out.println(vertex.getValue() + " adj colors = " + vertex.getAdjacentColors() + "; colors = " + vertex.getColors());
@@ -108,11 +114,12 @@ public class TimeTableController {
 
         for (TeacherGroupGraph.Vertex vertex : teacherGroupGraph.getAdjacencyList()) {
             Group group = groupService.getById(vertex.getValue().getGroupId());
+            Teacher teacher = teacherService.getById(vertex.getValue().getTeacherId());
             Set<TimeSlot> vertexColors = vertex.getColors();
             TeacherGroupAdjacency adjacency = vertex.getValue();
             for (TimeSlot timeSlot : vertexColors) {
                 VBox slot = getVBoxByTimeSlot(timeSlot);
-                Text text = new Text(group.getName());
+                Text text = new Text(teacher.getName() + " - " + group.getName());
                 slot.getChildren().add(text);
             }
         }

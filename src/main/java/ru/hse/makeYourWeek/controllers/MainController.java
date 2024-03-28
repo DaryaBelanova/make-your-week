@@ -34,7 +34,7 @@ public class MainController {
     }
 
     public void onActionTeachersButtonClick(ActionEvent event) throws IOException {
-        changeTab(teachersButton, "teachers.fxml");
+        changeTab(teachersButton, "teachersToDisplay.fxml");
     }
 
     public void onActionGroupsButtonClick(ActionEvent event) throws IOException {

@@ -24,4 +24,8 @@ public class TeacherService {
         teacherRepo.deleteAll();
         return teacherRepo.saveAll(teachers);
     }
+
+    public Teacher getById(Integer id) {
+        return teacherRepo.findById(id).orElse(null);
+    }
 }

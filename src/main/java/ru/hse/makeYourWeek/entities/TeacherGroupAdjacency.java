@@ -28,6 +28,12 @@ public class TeacherGroupAdjacency {
     @Column(name = "count_per_week")
     private Integer countPerWeek;
 
+    public TeacherGroupAdjacency(Integer teacherId, Integer groupId, Integer countPerWeek) {
+        this.teacherId = teacherId;
+        this.groupId = groupId;
+        this.countPerWeek = countPerWeek;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
