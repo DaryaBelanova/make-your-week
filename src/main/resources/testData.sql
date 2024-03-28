@@ -2,13 +2,17 @@ DELETE FROM timetable;
 DELETE FROM groups_groups;
 /*DELETE FROM groups_time_constraints;*/
 DELETE FROM teachers_groups;
+ALTER SEQUENCE public.teachers_groups_id_seq RESTART WITH 1;
 DELETE FROM groups;
+ALTER SEQUENCE public.groups_groups_id_seq RESTART WITH 1;
 /*DELETE FROM teachers_time_constraints;*/
 DELETE FROM teachers;
 DELETE FROM lesson_times;
+ALTER SEQUENCE public.lesson_times_id_seq RESTART WITH 1;
 /*DELETE FROM days;*/
 /*DELETE FROM classrooms;*/
 DELETE FROM subjects;
+ALTER SEQUENCE subjects_id_seq RESTART WITH 1;
 /*DELETE FROM status;*/
 
 INSERT INTO lesson_times (lesson_number, in_day)

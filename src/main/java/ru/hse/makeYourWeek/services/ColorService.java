@@ -25,42 +25,50 @@ public class ColorService {
         List<TimeSlot> colors = timeSlotRepo.findAll();
         colorizeTeacherGroupGraph(graph, colors);
     }
+
     private void colorizeTeacherGroupGraph(TeacherGroupGraph graph, List<TimeSlot> colors) {
 
         TeacherGroupGraph.Vertex minDegreeVertex = null;
+        // для каждой вершины
         for (TeacherGroupGraph.Vertex vertex : graph.getAdjacencyList()) {
-            if (minDegreeVertex != null && minDegreeVertex.getColors().size() == minDegreeVertex.getValue().getCountPerWeek()) {
+            // если вершина уже раскрашена
+            if (vertex != null && vertex.getColors().size() == vertex.getValue().getCountPerWeek()) {
                 continue;
             }
             if (minDegreeVertex == null || vertex.getAdjacentCount() < minDegreeVertex.getAdjacentCount()) {
                 minDegreeVertex = vertex;
-            }
-            else if (vertex.getAdjacentCount().equals(minDegreeVertex.getAdjacentCount())) {
+            } else if (vertex.getAdjacentCount().equals(minDegreeVertex.getAdjacentCount())) {
                 if (vertex.getAdjacentColorsCount() < minDegreeVertex.getAdjacentColorsCount()) {
                     minDegreeVertex = vertex;
                 }
             }
         }
         if (minDegreeVertex == null) {
+            System.out.println("Раскрашено!");
             return;
         }
-        Integer necessaryColorsCount = minDegreeVertex.getValue().getCountPerWeek();
-        while (necessaryColorsCount != 0) {
-            for (int i = 0; i < colors.size(); i++) {
-                if (!minDegreeVertex.getAdjacentColors().contains(colors.get(i)) && !minDegreeVertex.getColors().contains(colors.get(i))) {
-                    minDegreeVertex.getColors().add(colors.get(i));
-                    necessaryColorsCount--;
-                }
-            }
-        }
-        colorizeTeacherGroupGraph(graph, colors);
-    }
 
-    public void printTimeTableToBD(TeacherGroupGraph graph) {
-        for (TeacherGroupGraph.Vertex vertex : graph.getAdjacencyList()) {
-            for (TimeSlot color : vertex.getColors()) {
-                timeTableRepo.save(new TimeTable(vertex.getId(), color.getId()));
+        for (int i = 0; i < colors.size(); i++) {
+            if (minDegreeVertex.getColors().size() == minDegreeVertex.getValue().getCountPerWeek()) {
+                break;
+            }
+            if (!minDegreeVertex.getAdjacentColors().contains(colors.get(i)) && !minDegreeVertex.getColors().contains(colors.get(i))) {
+                minDegreeVertex.getColors().add(colors.get(i));
             }
         }
+        if (minDegreeVertex.getColors().size() != minDegreeVertex.getValue().getCountPerWeek()) {
+            System.out.println("Невозможно раскрасить!");
+            return;
+        }
+
+    colorizeTeacherGroupGraph(graph, colors);
+}
+
+public void printTimeTableToBD(TeacherGroupGraph graph) {
+    for (TeacherGroupGraph.Vertex vertex : graph.getAdjacencyList()) {
+        for (TimeSlot color : vertex.getColors()) {
+            timeTableRepo.save(new TimeTable(vertex.getId(), color.getId()));
+        }
     }
+}
 }
