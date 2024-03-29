@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.entities.*;
@@ -21,9 +23,14 @@ import ru.hse.makeYourWeek.repository.TimeSlotRepo;
 import ru.hse.makeYourWeek.repository.TimeTableRepo;
 import ru.hse.makeYourWeek.services.*;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -73,6 +80,7 @@ public class TimeTableController {
     public VBox thu7;
     public VBox fri7;
 
+
     @Autowired
     private ColorService colorService;
     @Autowired
@@ -86,10 +94,13 @@ public class TimeTableController {
     @Autowired
     private TimeTableService timeTableService;
 
+
+    public Button saveTimeTableFileButton;
     public Button mainButton;
     public Button teachersButton;
     public Button groupsButton;
     public Button generateButton;
+
 
     public void onActionMainButtonClick(ActionEvent event) throws IOException {
         changeTab(mainButton, "main.fxml");
@@ -106,16 +117,7 @@ public class TimeTableController {
     public void onActionGenerateButtonClick(ActionEvent event) {
         TeacherGroupGraph teacherGroupGraph = ApplicationContextHolder.getApplicationContext().getBean(TeacherGroupGraph.class);
         teacherGroupGraph.build();
-        /*for (int i = 0; i < teacherGroupGraph.getAdjacencyList().size(); i++) {
-            TeacherGroupGraph.Vertex vertex = teacherGroupGraph.getAdjacencyList().get(i);
-            System.out.println(vertex.getValue() + " adj colors = " + vertex.getAdjacentColors() + "; colors = " + vertex.getColors());
-            System.out.println("Adj vertices: ");
-            for (int j = 0; j < vertex.getAdjacencyList().size(); j++) {
-                System.out.print(vertex.getAdjacencyList().get(j).getValue() + " ");
-            }
-            System.out.println();
-            System.out.println();
-        }*/
+
         colorService.colorizeTeacherGroupGraph(teacherGroupGraph);
         saveNewTimeTableToDB(teacherGroupGraph);
 
@@ -148,18 +150,6 @@ public class TimeTableController {
             Text text = new Text(teacher.getName() + " - " + group.getName());
             slot.getChildren().add(text);
         }
-
-        /*for (TeacherGroupGraph.Vertex vertex : teacherGroupGraph.getAdjacencyList()) {
-            Group group = groupService.getById(vertex.getValue().getGroupId());
-            Teacher teacher = teacherService.getById(vertex.getValue().getTeacherId());
-            Set<TimeSlot> vertexColors = vertex.getColors();
-            TeacherGroupAdjacency adjacency = vertex.getValue();
-            for (TimeSlot timeSlot : vertexColors) {
-                VBox slot = getVBoxByTimeSlot(timeSlot);
-                Text text = new Text(teacher.getName() + " - " + group.getName());
-                slot.getChildren().add(text);
-            }
-        }*/
     }
 
     private void saveNewTimeTableToDB(TeacherGroupGraph teacherGroupGraph) {
@@ -180,6 +170,104 @@ public class TimeTableController {
         stage.setTitle("ПоНедельник");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void onActionSaveTimeTableFileButtonClick(ActionEvent event) {
+        List<TimeTableRecord> allRecords = timeTableService.getAll();
+
+        if (allRecords.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Нет данных в базе");
+            alert.setHeaderText(null);
+            alert.setContentText("Расписание еще не сгенерировано. Нет данных для выгрузки.");
+            alert.showAndWait();
+            return;
+        }
+
+        List<List<String>> toWrite = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            ArrayList<String> columns = new ArrayList<>();
+            for (int j = 0; j < 6; j++) {
+                columns.add("");
+            }
+            toWrite.add(columns);
+        }
+        for (TimeTableRecord timeTableRecord : allRecords) {
+            TeacherGroupAdjacency teacherGroupAdjacency = teacherGroupAdjacencyService.getById(timeTableRecord.getTeacherGroupId());
+            Teacher teacher = teacherService.getById(teacherGroupAdjacency.getTeacherId());
+            Group group = groupService.getById(teacherGroupAdjacency.getGroupId());
+            TimeSlot timeSlot = timeSlotService.getById(timeTableRecord.getTimeSlotId());
+
+            String toAdd = teacher.getName() + " - " + group.getName() + "\n";
+            switch (timeSlot.getInDay()) {
+                case "Понедельник":
+                    toWrite.get(timeSlot.getLessonNumber()).add(1, toWrite.get(timeSlot.getLessonNumber()).get(1) + toAdd);
+                    break;
+                case "Вторник":
+                    toWrite.get(timeSlot.getLessonNumber()).add(2, toWrite.get(timeSlot.getLessonNumber()).get(2) + toAdd);
+                    break;
+                case "Среда":
+                    toWrite.get(timeSlot.getLessonNumber()).add(3, toWrite.get(timeSlot.getLessonNumber()).get(3) + toAdd);
+                    break;
+                case "Четверг":
+                    toWrite.get(timeSlot.getLessonNumber()).add(4, toWrite.get(timeSlot.getLessonNumber()).get(4) + toAdd);
+                    break;
+                case "Пятница":
+                    toWrite.get(timeSlot.getLessonNumber()).add(5, toWrite.get(timeSlot.getLessonNumber()).get(5) + toAdd);
+                    break;
+            }
+        }
+
+
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Data");
+
+            // Заполнение названий столбцов
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("");
+            headerRow.createCell(1).setCellValue("ПН");
+            headerRow.createCell(2).setCellValue("ВТ");
+            headerRow.createCell(3).setCellValue("СР");
+            headerRow.createCell(4).setCellValue("ЧТ");
+            headerRow.createCell(5).setCellValue("ПТ");
+
+            // Заполнение данных
+            int rowNum = 1;
+            for (int i = 1; i <= 7; i++) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(i + " урок");
+                for (int j = 1; j <= 5; j++) {
+                    row.createCell(j).setCellValue(toWrite.get(i).get(j));
+                }
+            }
+
+            // Сохранение в файл
+            String fileName = "timeTable.xlsx";
+            String baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+            String extension = fileName.substring(fileName.lastIndexOf('.'));
+
+            File file = new File(fileName);
+            int index = 1;
+            while (file.exists()) {
+                fileName = baseName + "(" + index + ")" + extension;
+                file = new File(fileName);
+                index++;
+            }
+            try (FileOutputStream fileOut = new FileOutputStream(fileName)) {
+                workbook.write(fileOut);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Успех!");
+                alert.setHeaderText(null);
+                alert.setContentText("Файл с расписанием успешно сохранен.");
+                alert.showAndWait();
+            }
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText(null);
+            alert.setContentText("Не удалось сохранить файл.");
+            alert.showAndWait();
+        }
     }
 
     private VBox getVBoxByTimeSlot(TimeSlot timeSlot) {

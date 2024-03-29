@@ -1,4 +1,5 @@
 DELETE FROM timetable;
+ALTER SEQUENCE timetable_id_seq RESTART WITH 1;
 DELETE FROM groups_groups;
 /*DELETE FROM groups_time_constraints;*/
 DELETE FROM teachers_groups;
