@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.hse.makeYourWeek.entities.Teacher;
 import ru.hse.makeYourWeek.entities.TeacherGroupAdjacency;
 import ru.hse.makeYourWeek.repository.TeacherGroupRepo;
+import ru.hse.makeYourWeek.repository.TimeTableRepo;
 
 import java.util.List;
 
@@ -13,13 +14,24 @@ import java.util.List;
 public class TeacherGroupAdjacencyService {
     @Autowired
     private TeacherGroupRepo teacherGroupRepo;
+    @Autowired
+    private TimeTableRepo timeTableRepo;
 
 
     public List<TeacherGroupAdjacency> deleteAndSaveNew(List<TeacherGroupAdjacency> teacherGroupAdjacencies) {
+        timeTableRepo.deleteAll();
         teacherGroupRepo.deleteAll();
         for (int i = 0; i < teacherGroupAdjacencies.size(); i++) {
             teacherGroupAdjacencies.get(i).setId(i + 1);
         }
         return teacherGroupRepo.saveAll(teacherGroupAdjacencies);
+    }
+
+    public List<TeacherGroupAdjacency> getAll() {
+        return teacherGroupRepo.findAll();
+    }
+
+    public TeacherGroupAdjacency getById(Integer id) {
+        return teacherGroupRepo.findById(id).orElse(null);
     }
 }

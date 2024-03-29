@@ -3,7 +3,7 @@ package ru.hse.makeYourWeek.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hse.makeYourWeek.entities.TimeSlot;
-import ru.hse.makeYourWeek.entities.TimeTable;
+import ru.hse.makeYourWeek.entities.TimeTableRecord;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
 import ru.hse.makeYourWeek.repository.TimeSlotRepo;
 import ru.hse.makeYourWeek.repository.TimeTableRepo;
@@ -61,14 +61,7 @@ public class ColorService {
             return;
         }
 
-    colorizeTeacherGroupGraph(graph, colors);
-}
-
-public void printTimeTableToBD(TeacherGroupGraph graph) {
-    for (TeacherGroupGraph.Vertex vertex : graph.getAdjacencyList()) {
-        for (TimeSlot color : vertex.getColors()) {
-            timeTableRepo.save(new TimeTable(vertex.getId(), color.getId()));
-        }
+        colorizeTeacherGroupGraph(graph, colors);
     }
-}
+
 }

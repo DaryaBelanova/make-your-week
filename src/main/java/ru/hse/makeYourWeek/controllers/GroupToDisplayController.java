@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
@@ -24,6 +21,7 @@ import ru.hse.makeYourWeek.entities.GroupsAdjacencyPair;
 import ru.hse.makeYourWeek.services.GroupService;
 import ru.hse.makeYourWeek.services.GroupToDisplayService;
 import ru.hse.makeYourWeek.services.GroupsAdjacencyService;
+import ru.hse.makeYourWeek.services.TimeTableService;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.File;
@@ -36,7 +34,6 @@ import java.util.List;
 @Controller
 @FxmlView("groupsToDisplay.fxml")
 public class GroupToDisplayController {
-    public Button mainButton;
     @FXML
     public TableView<GroupToDisplay> groupToDisplayTableView;
     @FXML
@@ -46,20 +43,23 @@ public class GroupToDisplayController {
     @FXML
     public TableColumn<GroupToDisplay, List<Integer>> adjacency;
 
+
+    public Button mainButton;
     @FXML
     public Button uploadAdjacenciesButton;
     public Button teachersButton;
     public Button timeTableButton;
     public Button uploadButton;
-    public GridPane gridPane;
+
 
     @Autowired
     private GroupService groupService;
-
     @Autowired
     private GroupToDisplayService groupToDisplayService;
     @Autowired
     private GroupsAdjacencyService groupsAdjacencyService;
+    @Autowired
+    private TimeTableService timeTableService;
 
     @FXML
     private void initialize() {
@@ -102,6 +102,35 @@ public class GroupToDisplayController {
     }
 
     public void onActionUploadButtonClick(ActionEvent event) throws IOException {
+        if (timeTableService.getRecordsCount() == 0) {
+            uploadGroups();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Окно подтверждения");
+        alert.setHeaderText("Подтверждение загрузки файла");
+        alert.setContentText("Внимание! Обновление данных приведет к неактуальности расписания, поэтому оно будет безвозвратно удалено.\n" +
+                "Необходимо выгрузить файл с расписанием, чтобы его сохранить.\n" +
+                "Хотите продолжить обновление данных?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Продолжить выполнение метода по загрузке файла
+                uploadGroups();
+            } else {
+                // Перенаправить пользователя на окно расписания
+                try {
+                    changeTab(timeTableButton, "timeTable.fxml");
+                } catch (IOException e) {
+
+                }
+            }
+        });
+
+    }
+
+    private void uploadGroups() {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -114,6 +143,9 @@ public class GroupToDisplayController {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
+                        if (record.length != 2) {
+                            throw new Exception("Неверный формат заполнения файла");
+                        }
                         Integer id = Integer.valueOf(record[0]);
                         String name = record[1];
                         if (!isValidGroupName(name)) {
@@ -151,9 +183,38 @@ public class GroupToDisplayController {
     }
 
     public void onActionUploadAdjacenciesButtonClick() {
+        if (timeTableService.getRecordsCount() == 0) {
+            uploadAdjacencies();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Окно подтверждения");
+        alert.setHeaderText("Подтверждение загрузки файла");
+        alert.setContentText("Внимание! Обновление данных приведет к неактуальности расписания, поэтому оно будет безвозвратно удалено.\n" +
+                "Необходимо выгрузить файл с расписанием, чтобы его сохранить.\n" +
+                "Хотите продолжить обновление данных?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Продолжить выполнение метода по загрузке файла
+                uploadAdjacencies();
+            } else {
+                // Перенаправить пользователя на другое окно
+                try {
+                    changeTab(timeTableButton, "timeTable.fxml");
+                } catch (IOException e) {
+
+                }
+            }
+        });
+
+    }
+
+    private void uploadAdjacencies() {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Загрузка файла");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         List<GroupsAdjacencyPair> usedPairs = new ArrayList<>();
@@ -163,6 +224,9 @@ public class GroupToDisplayController {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
+                        if (record.length != 2) {
+                            throw new Exception("Неверный формат заполнения файла");
+                        }
                         Integer firstId = Integer.valueOf(record[0]);
                         Integer secondId = Integer.valueOf(record[1]);
                         if (groupService.getById(firstId) == null || groupService.getById(secondId) == null) {

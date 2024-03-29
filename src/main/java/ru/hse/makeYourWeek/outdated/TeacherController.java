@@ -1,4 +1,4 @@
-package ru.hse.makeYourWeek.controllers;
+package ru.hse.makeYourWeek.outdated;
 
 import au.com.bytecode.opencsv.CSVReader;
 import javafx.collections.FXCollections;

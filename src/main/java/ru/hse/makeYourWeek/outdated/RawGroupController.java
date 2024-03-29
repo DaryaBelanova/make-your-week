@@ -1,4 +1,4 @@
-package ru.hse.makeYourWeek.controllers;
+package ru.hse.makeYourWeek.outdated;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

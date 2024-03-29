@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TimeTable {
+public class TimeTableRecord {
     @Id
     @Column(name = "id")
     private Integer id;
@@ -21,7 +21,7 @@ public class TimeTable {
     @Column(name = "timeslot_id")
     private Integer timeSlotId;
 
-    public TimeTable(Integer teacherGroupId, Integer timeSlotId) {
+    public TimeTableRecord(Integer teacherGroupId, Integer timeSlotId) {
         this.teacherGroupId = teacherGroupId;
         this.timeSlotId = timeSlotId;
     }

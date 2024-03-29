@@ -1,10 +1,12 @@
 package ru.hse.makeYourWeek.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -12,20 +14,18 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ru.hse.makeYourWeek.entities.Group;
-import ru.hse.makeYourWeek.entities.Teacher;
-import ru.hse.makeYourWeek.entities.TeacherGroupAdjacency;
-import ru.hse.makeYourWeek.entities.TimeSlot;
+import ru.hse.makeYourWeek.entities.*;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
 import ru.hse.makeYourWeek.repository.GroupRepo;
-import ru.hse.makeYourWeek.services.ColorService;
-import ru.hse.makeYourWeek.services.GroupService;
-import ru.hse.makeYourWeek.services.TeacherService;
+import ru.hse.makeYourWeek.repository.TimeSlotRepo;
+import ru.hse.makeYourWeek.repository.TimeTableRepo;
+import ru.hse.makeYourWeek.services.*;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -79,6 +79,12 @@ public class TimeTableController {
     private GroupService groupService;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private TeacherGroupAdjacencyService teacherGroupAdjacencyService;
+    @Autowired
+    private TimeSlotService timeSlotService;
+    @Autowired
+    private TimeTableService timeTableService;
 
     public Button mainButton;
     public Button teachersButton;
@@ -111,8 +117,39 @@ public class TimeTableController {
             System.out.println();
         }*/
         colorService.colorizeTeacherGroupGraph(teacherGroupGraph);
+        saveNewTimeTableToDB(teacherGroupGraph);
 
-        for (TeacherGroupGraph.Vertex vertex : teacherGroupGraph.getAdjacencyList()) {
+        displayTimeTable();
+    }
+
+    @FXML
+    private void initialize() {
+        displayTimeTable();
+    }
+
+    private void clearTimeTableView() {
+        for (TimeSlot timeSlot : timeSlotService.getAll()) {
+            VBox slot = getVBoxByTimeSlot(timeSlot);
+            slot.getChildren().clear();
+        }
+    }
+
+    private void displayTimeTable() {
+        clearTimeTableView();
+
+        List<TimeTableRecord> allRecords = timeTableService.getAll();
+        for (TimeTableRecord record : allRecords) {
+            TeacherGroupAdjacency teacherGroupAdjacency = teacherGroupAdjacencyService.getById(record.getTeacherGroupId());
+            Teacher teacher = teacherService.getById(teacherGroupAdjacency.getTeacherId());
+            Group group = groupService.getById(teacherGroupAdjacency.getGroupId());
+            TimeSlot timeSlot = timeSlotService.getById(record.getTimeSlotId());
+
+            VBox slot = getVBoxByTimeSlot(timeSlot);
+            Text text = new Text(teacher.getName() + " - " + group.getName());
+            slot.getChildren().add(text);
+        }
+
+        /*for (TeacherGroupGraph.Vertex vertex : teacherGroupGraph.getAdjacencyList()) {
             Group group = groupService.getById(vertex.getValue().getGroupId());
             Teacher teacher = teacherService.getById(vertex.getValue().getTeacherId());
             Set<TimeSlot> vertexColors = vertex.getColors();
@@ -122,15 +159,12 @@ public class TimeTableController {
                 Text text = new Text(teacher.getName() + " - " + group.getName());
                 slot.getChildren().add(text);
             }
-        }
+        }*/
     }
 
-    public void onActionShowForGroupsButtonClick(TeacherGroupGraph teacherGroupGraph) {
-
-    }
-
-    public void onActionShowForTeachersButtonClick(TeacherGroupGraph teacherGroupGraph) {
-
+    private void saveNewTimeTableToDB(TeacherGroupGraph teacherGroupGraph) {
+        List<TimeTableRecord> saved = timeTableService.deleteAndSaveNew(teacherGroupGraph);
+        displayTimeTable();
     }
 
     private void changeTab(Button onClick, String fxmlFileName) throws IOException {

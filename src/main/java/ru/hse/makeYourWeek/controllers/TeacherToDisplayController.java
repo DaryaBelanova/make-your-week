@@ -1,35 +1,25 @@
 package ru.hse.makeYourWeek.controllers;
 
 import au.com.bytecode.opencsv.CSVReader;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.converter.DefaultStringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.entities.Teacher;
 import ru.hse.makeYourWeek.entities.TeacherGroupAdjacency;
 import ru.hse.makeYourWeek.entities.TeacherToDisplay;
-import ru.hse.makeYourWeek.services.GroupService;
-import ru.hse.makeYourWeek.services.TeacherGroupAdjacencyService;
-import ru.hse.makeYourWeek.services.TeacherService;
-import ru.hse.makeYourWeek.services.TeacherToDisplayService;
+import ru.hse.makeYourWeek.services.*;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.io.File;
@@ -43,14 +33,13 @@ import java.util.List;
 @FxmlView("teachersToDisplay.fxml")
 public class TeacherToDisplayController {
     public Button mainButton;
-
     public Button groupsButton;
     public Button timeTableButton;
     public Button uploadButton;
     public AnchorPane anchorPane;
     public Button uploadGroupsForTeachersButton;
 
-    private ObservableList<Teacher> teachers = FXCollections.observableArrayList();
+
     @FXML
     private TableView<TeacherToDisplay> teacherTableView;
     @FXML
@@ -58,6 +47,7 @@ public class TeacherToDisplayController {
     @FXML
     private TableColumn<TeacherToDisplay, Integer> id;
     public TableColumn<TeacherToDisplay, VBox> groupsWithCountPerWeek;
+
 
     @Autowired
     private TeacherService teacherService;
@@ -67,6 +57,8 @@ public class TeacherToDisplayController {
     private GroupService groupService;
     @Autowired
     private TeacherGroupAdjacencyService teacherGroupAdjacencyService;
+    @Autowired
+    private TimeTableService timeTableService;
 
     @FXML
     private void initialize() {
@@ -113,6 +105,36 @@ public class TeacherToDisplayController {
     }
 
     public void onActionUploadButtonClick(ActionEvent event) throws IOException {
+        if (timeTableService.getRecordsCount() == 0) {
+            uploadTeachers();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Окно подтверждения");
+        alert.setHeaderText("Подтверждение загрузки файла");
+        alert.setContentText("Внимание! Обновление данных приведет к неактуальности расписания, поэтому оно будет безвозвратно удалено.\n" +
+                "Необходимо выгрузить файл с расписанием, чтобы его сохранить.\n" +
+                "Хотите продолжить обновление данных?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Продолжить выполнение метода по загрузке файла
+                uploadTeachers();
+            } else {
+                // Перенаправить пользователя на окно расписания
+                try {
+                    changeTab(timeTableButton, "timeTable.fxml");
+                } catch (IOException e) {
+
+                }
+            }
+        });
+
+
+    }
+
+    private void uploadTeachers() {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -126,10 +148,13 @@ public class TeacherToDisplayController {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
+                        if (record.length != 2) {
+                            throw new Exception("Неверный формат заполнения файла");
+                        }
                         Integer id = Integer.valueOf(record[0]);
                         String name = record[1];
                         if (usedTeachersFio.contains(name)) {
-                            throw new Exception();
+                            throw new Exception("Этот учитель уже был внесен. Если ФИО двух учителей совпадают, добавьте к ним различитель, например, предмет, который ведет учитель");
                         }
                         Integer workingHours = Integer.valueOf(record[2]);
                         newTeachers.add(new Teacher(id, name, workingHours));
@@ -151,10 +176,39 @@ public class TeacherToDisplayController {
         }
     }
 
-    public void onActionUploadGroupsForTeachersButtonClick(ActionEvent event) {
+    public void onActionUploadGroupsForTeachersButtonClick(ActionEvent event) throws IOException {
+        if (timeTableService.getRecordsCount() == 0) {
+            uploadGroupsForTeachers();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Окно подтверждения");
+        alert.setHeaderText("Подтверждение загрузки файла");
+        alert.setContentText("Внимание! Обновление данных приведет к неактуальности расписания, поэтому оно будет безвозвратно удалено.\n" +
+                "Необходимо выгрузить файл с расписанием, чтобы его сохранить.\n" +
+                "Хотите продолжить обновление данных?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Продолжить выполнение метода по загрузке файла
+                uploadGroupsForTeachers();
+            } else {
+                // Перенаправить пользователя на окно расписания
+                try {
+                    changeTab(timeTableButton, "timeTable.fxml");
+                } catch (IOException e) {
+
+                }
+            }
+        });
+
+    }
+
+    private void uploadGroupsForTeachers() {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Загрузка файла");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
@@ -165,6 +219,9 @@ public class TeacherToDisplayController {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
+                        if (record.length != 3) {
+                            throw new Exception("Неверный формат заполнения файла");
+                        }
                         Integer teacherId = Integer.valueOf(record[0]);
                         Integer groupId = Integer.valueOf(record[1]);
                         Integer countPerWeek = Integer.valueOf(record[2]);
@@ -203,6 +260,7 @@ public class TeacherToDisplayController {
         List<Teacher> saved = teacherService.deleteAndSaveNew(teachers);
         displayTeachers();
     }
+
     private void displayAlert(String message, String title) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -210,4 +268,5 @@ public class TeacherToDisplayController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }
