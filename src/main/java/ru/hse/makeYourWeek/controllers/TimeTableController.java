@@ -14,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.entities.*;
@@ -184,11 +186,11 @@ public class TimeTableController {
             return;
         }
 
-        List<List<String>> toWrite = new ArrayList<>();
+        List<List<List<String>>> toWrite = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
-            ArrayList<String> columns = new ArrayList<>();
+            List<List<String>> columns = new ArrayList<>();
             for (int j = 0; j < 6; j++) {
-                columns.add("");
+                columns.add(new ArrayList<>());
             }
             toWrite.add(columns);
         }
@@ -198,29 +200,35 @@ public class TimeTableController {
             Group group = groupService.getById(teacherGroupAdjacency.getGroupId());
             TimeSlot timeSlot = timeSlotService.getById(timeTableRecord.getTimeSlotId());
 
-            String toAdd = teacher.getName() + " - " + group.getName() + "\n";
+            String toAdd = teacher.getName() + " - " + group.getName();
             switch (timeSlot.getInDay()) {
                 case "Понедельник":
-                    toWrite.get(timeSlot.getLessonNumber()).add(1, toWrite.get(timeSlot.getLessonNumber()).get(1) + toAdd);
+                    toWrite.get(timeSlot.getLessonNumber()).get(1).add(toAdd);
                     break;
                 case "Вторник":
-                    toWrite.get(timeSlot.getLessonNumber()).add(2, toWrite.get(timeSlot.getLessonNumber()).get(2) + toAdd);
+                    toWrite.get(timeSlot.getLessonNumber()).get(2). add(toAdd);
                     break;
                 case "Среда":
-                    toWrite.get(timeSlot.getLessonNumber()).add(3, toWrite.get(timeSlot.getLessonNumber()).get(3) + toAdd);
+                    toWrite.get(timeSlot.getLessonNumber()).get(3).add(toAdd);
                     break;
                 case "Четверг":
-                    toWrite.get(timeSlot.getLessonNumber()).add(4, toWrite.get(timeSlot.getLessonNumber()).get(4) + toAdd);
+                    toWrite.get(timeSlot.getLessonNumber()).get(4).add(toAdd);
                     break;
                 case "Пятница":
-                    toWrite.get(timeSlot.getLessonNumber()).add(5, toWrite.get(timeSlot.getLessonNumber()).get(5) + toAdd);
+                    toWrite.get(timeSlot.getLessonNumber()).get(5).add(toAdd);
                     break;
             }
         }
 
 
         try (Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Data");
+            Sheet sheet = workbook.createSheet("Расписание");
+            sheet.setColumnWidth(0, 15 * 512); // Ширина столбца в символах, умноженная на 256
+            sheet.setColumnWidth(1, 15 * 512); // Ширина столбца в символах, умноженная на 256
+            sheet.setColumnWidth(2, 15 * 512); // Ширина столбца в символах, умноженная на 256
+            sheet.setColumnWidth(3, 15 * 512); // Ширина столбца в символах, умноженная на 256
+            sheet.setColumnWidth(4, 15 * 512); // Ширина столбца в символах, умноженная на 256
+            sheet.setColumnWidth(5, 15 * 512); // Ширина столбца в символах, умноженная на 256
 
             // Заполнение названий столбцов
             Row headerRow = sheet.createRow(0);
@@ -232,17 +240,21 @@ public class TimeTableController {
             headerRow.createCell(5).setCellValue("ПТ");
 
             // Заполнение данных
-            int rowNum = 1;
             for (int i = 1; i <= 7; i++) {
-                Row row = sheet.createRow(rowNum++);
+                Row row = sheet.createRow(i);
                 row.createCell(0).setCellValue(i + " урок");
+                row.setHeightInPoints(250);
                 for (int j = 1; j <= 5; j++) {
-                    row.createCell(j).setCellValue(toWrite.get(i).get(j));
+                    StringBuilder res = new StringBuilder();
+                    for (String record : toWrite.get(i).get(j)) {
+                        res.append(record).append("\n");
+                    }
+                    row.createCell(j).setCellValue(res.toString());
                 }
             }
 
             // Сохранение в файл
-            String fileName = "timeTable.xlsx";
+            String fileName = "timetable.xlsx";
             String baseName = fileName.substring(0, fileName.lastIndexOf('.'));
             String extension = fileName.substring(fileName.lastIndexOf('.'));
 

@@ -148,7 +148,7 @@ public class TeacherToDisplayController {
                 String[] record = reader.readNext();
                 while ((record = reader.readNext()) != null) {
                     try {
-                        if (record.length != 2) {
+                        if (record.length != 3) {
                             throw new Exception("Неверный формат заполнения файла");
                         }
                         Integer id = Integer.valueOf(record[0]);

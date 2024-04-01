@@ -10,27 +10,29 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <TitledPane text="Главная" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.hse.makeYourWeek.controllers.MainController">
    <content>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <HBox layoutY="14.0" prefHeight="56.0" prefWidth="303.0">
+            <HBox layoutY="14.0" prefHeight="34.0" prefWidth="303.0">
                <children>
-                  <Button fx:id="teachersButton" mnemonicParsing="false" text="Учителя" onAction="#onActionTeachersButtonClick"/>
-                  <Button fx:id="groupsButton" mnemonicParsing="false" text="Учебные группы" onAction="#onActionGroupsButtonClick"/>
-                  <Button fx:id="timeTableButton" mnemonicParsing="false" text="Расписание" onAction="#onActionTimeTableButtonClick"/>
+                  <Button fx:id="teachersButton" mnemonicParsing="false" onAction="#onActionTeachersButtonClick" text="Учителя" />
+                  <Button fx:id="groupsButton" mnemonicParsing="false" onAction="#onActionGroupsButtonClick" text="Учебные группы" />
+                  <Button fx:id="timeTableButton" mnemonicParsing="false" onAction="#onActionTimeTableButtonClick" text="Расписание" />
                </children>
             </HBox>
-            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="130.0" layoutY="237.0" startX="-100.0" />
-            <Polyline fill="#fefffc00" layoutX="123.0" layoutY="254.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
-            <GridPane layoutX="29.0" layoutY="129.0" prefHeight="91.0" prefWidth="536.0">
+            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="108.0" layoutY="288.0" startX="-100.0" />
+            <Polyline fill="#fefffc00" layoutX="101.0" layoutY="304.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
+            <GridPane layoutX="7.0" layoutY="125.0" prefHeight="138.0" prefWidth="594.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -49,28 +51,52 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 3" GridPane.columnIndex="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 4" GridPane.columnIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Внесите список учителей" wrappingWidth="99.473876953125" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Внесите список учебных групп" wrappingWidth="98.673828125" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Присвойте учителям учебные группы" wrappingWidth="134.8297119140625" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сгенерируйте расписание" wrappingWidth="135.4696044921875" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 5" GridPane.columnIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Внесите список учебных групп" wrappingWidth="99.473876953125" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Внесите список пересечений учебных групп" wrappingWidth="98.673828125" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Внесите список принадлежности учебных групп учителям" wrappingWidth="98.82970428466797" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сгенерируйте расписание" wrappingWidth="92.26962280273438" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Text layoutX="118.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 3" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="118.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Внесите список учителей" wrappingWidth="98.673828125" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Text layoutX="390.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 6" GridPane.columnIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="390.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Скачайте xlsx файл с распианием" wrappingWidth="92.26962280273438" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="264.0" layoutY="236.0" startX="-100.0" />
-            <Polyline fill="#fefffc00" layoutX="257.0" layoutY="254.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
-            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="398.0" layoutY="236.0" startX="-100.0" />
-            <Polyline fill="#fefffc00" layoutX="391.0" layoutY="254.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
-            <Polyline fill="#ffffff00" layoutX="455.0" layoutY="192.0" points="14.200042724609375, 31.199996948242188, 14.200042724609375, 31.199996948242188, 0.0, 60.0, -7.400016784667969, 38.399993896484375" stroke="#00fa0c" strokeType="INSIDE" />
-            <Circle fill="#fafafa00" layoutX="458.0" layoutY="237.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="309.0" layoutY="287.0" startX="-100.0" />
+            <Polyline fill="#fefffc00" layoutX="302.0" layoutY="304.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
+            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="405.0" layoutY="288.0" startX="-100.0" />
+            <Polyline fill="#fefffc00" layoutX="398.0" layoutY="303.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
+            <Polyline fill="#ffffff00" layoutX="521.0" layoutY="241.0" points="14.200042724609375, 31.199996948242188, 14.200042724609375, 31.199996948242188, 0.0, 60.0, -7.400016784667969, 38.399993896484375" stroke="#00fa0c" strokeType="INSIDE" />
+            <Circle fill="#fafafa00" layoutX="525.0" layoutY="286.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="504.0" layoutY="290.0" startX="-100.0" />
+            <Polyline fill="#fefffc00" layoutX="497.0" layoutY="305.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
+            <Line endX="-57.60002899169922" endY="-3.0517578125E-5" layoutX="206.0" layoutY="288.0" startX="-100.0" />
+            <Polyline fill="#fefffc00" layoutX="199.0" layoutY="304.0" points="-49.99999237060547, -27.00006103515625, -30.60002899169922, -15.800018310546875, -49.99999237060547, -6.200042724609375, -49.99999237060547, -27.000030517578125" strokeType="INSIDE" />
+            <QuadCurve controlX="-21.199966430664062" controlY="-28.79999542236328" endX="-21.199966430664062" endY="-59.600013732910156" fill="#1f93ff00" layoutX="158.0" layoutY="109.0" startX="9.999984741210938" startY="-28.79999542236328" stroke="#868585" strokeType="INSIDE" />
+            <Line endX="5.4000091552734375" endY="-23.59998321533203" layoutX="125.0" layoutY="83.0" startX="11.800033569335938" startY="-33.600013732910156" stroke="#868585" />
+            <Line endX="-148.59999084472656" endY="-13.400001525878906" layoutX="295.0" layoutY="72.0" startX="-158.19996643066406" startY="-22.600013732910156" stroke="#868585" />
+            <Text fill="#868585" layoutX="170.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </content>

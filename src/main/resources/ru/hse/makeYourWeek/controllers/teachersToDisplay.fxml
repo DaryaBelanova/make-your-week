@@ -9,19 +9,23 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.QuadCurve?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <TitledPane text="Учителя" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.hse.makeYourWeek.controllers.TeacherToDisplayController">
     <content>
         <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0">
             <children>
-                <HBox layoutX="2.0" layoutY="7.0" prefHeight="56.0" prefWidth="303.0">
+                <HBox layoutX="2.0" layoutY="7.0" prefHeight="42.0" prefWidth="258.0">
                     <children>
                         <Button fx:id="mainButton" mnemonicParsing="false" onAction="#onActionMainButtonClick" text="Главная" />
                         <Button fx:id="groupsButton" mnemonicParsing="false" onAction="#onActionGroupsButtonClick" text="Учебные группы" />
                         <Button fx:id="timeTableButton" mnemonicParsing="false" onAction="#onActionTimeTableButtonClick" text="Расписание" />
                     </children>
                 </HBox>
-                <GridPane layoutX="43.0" layoutY="63.0" prefHeight="42.0" prefWidth="523.0">
+                <GridPane layoutX="43.0" layoutY="78.0" prefHeight="27.0" prefWidth="523.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.5999755859375" minWidth="10.0" prefWidth="262.79998779296875" />
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="261.20001220703125" minWidth="10.0" prefWidth="261.20001220703125" />
@@ -42,6 +46,30 @@
                     </columns>
                 </TableView>
                 <TitledPane animated="false" layoutX="98.0" layoutY="-116.0" text="untitled" />
+            <QuadCurve controlX="-78.99996948242188" controlY="-36.40000534057617" endX="-53.799957275390625" endY="-14.599983215332031" fill="#1f93ff00" layoutX="313.0" layoutY="77.0" startX="-106.99998474121094" startY="-7.62939453125E-6" stroke="#868585" strokeType="INSIDE" />
+            <Line endX="-152.40000915527344" endY="20.599998474121094" layoutX="374.0" layoutY="49.0" startX="-167.99998474121094" startY="27.99999237060547" stroke="#868585" />
+            <Line endX="-127.99998474121094" endY="16.61717987060547" layoutX="334.0" layoutY="49.0" startX="-127.99998474121094" startY="27.99999237060547" stroke="#868585" />
+            <Text fill="#868585" layoutX="260.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <QuadCurve controlX="-78.99996948242188" controlY="-36.40000534057617" endX="-53.799957275390625" endY="-14.599983215332031" fill="#1f93ff00" layoutX="509.0" layoutY="75.0" startX="-106.99998474121094" startY="-7.62939453125E-6" stroke="#868585" strokeType="INSIDE" />
+            <Line endX="-152.40000915527344" endY="20.599998474121094" layoutX="570.0" layoutY="47.0" startX="-167.99998474121094" startY="27.99999237060547" stroke="#868585" />
+            <Line endX="-127.99998474121094" endY="16.61717987060547" layoutX="530.0" layoutY="47.0" startX="-127.99998474121094" startY="27.99999237060547" stroke="#868585" />
+            <Text fill="#868585" layoutX="456.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <QuadCurve controlX="121.00003051757812" controlY="-41.00001525878906" endX="147.00003051757812" endY="-51.00001525878906" fill="#1f93ff00" layoutX="159.0" layoutY="73.0" startX="101.39999389648438" startY="-54.59999084472656" stroke="#868585" strokeType="INSIDE" />
+            <Line endX="-30.600006103515625" endY="-11.59998893737793" layoutX="291.0" layoutY="30.0" startX="-18.199981689453125" startY="-11.59998893737793" stroke="#868585" />
+            <Line endX="79.89999389648438" endY="-27.09998893737793" layoutX="180.0" layoutY="45.0" startX="88.00003051757812" startY="-16.199995040893555" stroke="#868585" />
+            <Text fill="#868585" layoutX="306.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 5">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </content>

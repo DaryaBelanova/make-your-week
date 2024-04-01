@@ -26,7 +26,7 @@ public class ColorService {
         colorizeTeacherGroupGraph(graph, colors);
     }
 
-    private void colorizeTeacherGroupGraph(TeacherGroupGraph graph, List<TimeSlot> colors) {
+    private boolean colorizeTeacherGroupGraph(TeacherGroupGraph graph, List<TimeSlot> colors) {
 
         TeacherGroupGraph.Vertex minDegreeVertex = null;
         // для каждой вершины
@@ -45,7 +45,7 @@ public class ColorService {
         }
         if (minDegreeVertex == null) {
             System.out.println("Раскрашено!");
-            return;
+            return true;
         }
 
         for (int i = 0; i < colors.size(); i++) {
@@ -58,10 +58,11 @@ public class ColorService {
         }
         if (minDegreeVertex.getColors().size() != minDegreeVertex.getValue().getCountPerWeek()) {
             System.out.println("Невозможно раскрасить!");
-            return;
+            return false;
         }
 
         colorizeTeacherGroupGraph(graph, colors);
+        return false;
     }
 
 }
