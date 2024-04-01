@@ -120,7 +120,15 @@ public class TimeTableController {
         TeacherGroupGraph teacherGroupGraph = ApplicationContextHolder.getApplicationContext().getBean(TeacherGroupGraph.class);
         teacherGroupGraph.build();
 
-        colorService.colorizeTeacherGroupGraph(teacherGroupGraph);
+        boolean isValid = colorService.colorizeTeacherGroupGraph(teacherGroupGraph);
+        if (!isValid) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Некорректные данные");
+            alert.setHeaderText(null);
+            alert.setContentText("Невозможно сгенерировать корректное расписание.\nЗагружены изначально конфликтующие данные.");
+            alert.showAndWait();
+            return;
+        }
         saveNewTimeTableToDB(teacherGroupGraph);
 
         displayTimeTable();

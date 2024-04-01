@@ -21,9 +21,9 @@ public class ColorService {
         this.timeTableRepo = timeTableRepo;
     }
 
-    public void colorizeTeacherGroupGraph(TeacherGroupGraph graph) {
+    public boolean colorizeTeacherGroupGraph(TeacherGroupGraph graph) {
         List<TimeSlot> colors = timeSlotRepo.findAll();
-        colorizeTeacherGroupGraph(graph, colors);
+        return colorizeTeacherGroupGraph(graph, colors);
     }
 
     private boolean colorizeTeacherGroupGraph(TeacherGroupGraph graph, List<TimeSlot> colors) {
