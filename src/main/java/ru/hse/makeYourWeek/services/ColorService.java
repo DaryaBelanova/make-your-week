@@ -62,7 +62,7 @@ public class ColorService {
         }
 
         colorizeTeacherGroupGraph(graph, colors);
-        return false;
+        return true;
     }
 
 }
