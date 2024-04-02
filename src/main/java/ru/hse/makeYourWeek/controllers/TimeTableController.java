@@ -7,22 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.hse.makeYourWeek.entities.*;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
-import ru.hse.makeYourWeek.repository.GroupRepo;
-import ru.hse.makeYourWeek.repository.TimeSlotRepo;
-import ru.hse.makeYourWeek.repository.TimeTableRepo;
 import ru.hse.makeYourWeek.services.*;
 import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 import org.apache.poi.ss.usermodel.*;
@@ -31,11 +25,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @FxmlView("timeTable.fxml")
@@ -170,8 +161,8 @@ public class TimeTableController {
     private void changeTab(Button onClick, String fxmlFileName) throws IOException {
         //Close current
         Stage stage = (Stage) onClick.getScene().getWindow();
-        // do what you have to do
         stage.close();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFileName));
         fxmlLoader.setControllerFactory(ApplicationContextHolder.getApplicationContext()::getBean);
         Parent root = (Parent) fxmlLoader.load();
@@ -238,19 +229,41 @@ public class TimeTableController {
             sheet.setColumnWidth(4, 15 * 512); // Ширина столбца в символах, умноженная на 256
             sheet.setColumnWidth(5, 15 * 512); // Ширина столбца в символах, умноженная на 256
 
+            // Создаем стиль для жирного текста
+            CellStyle boldStyle = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            boldStyle.setFont(font);
+
             // Заполнение названий столбцов
             Row headerRow = sheet.createRow(0);
             headerRow.createCell(0).setCellValue("");
-            headerRow.createCell(1).setCellValue("ПН");
-            headerRow.createCell(2).setCellValue("ВТ");
-            headerRow.createCell(3).setCellValue("СР");
-            headerRow.createCell(4).setCellValue("ЧТ");
-            headerRow.createCell(5).setCellValue("ПТ");
+
+            Cell cell1 = headerRow.createCell(1);
+            cell1.setCellValue("ПН");
+            cell1.setCellStyle(boldStyle);
+
+            Cell cell2 = headerRow.createCell(2);
+            cell2.setCellValue("ВТ");
+            cell2.setCellStyle(boldStyle);
+            Cell cell3 = headerRow.createCell(3);
+            cell3.setCellValue("СР");
+            cell3.setCellStyle(boldStyle);
+
+            Cell cell4 = headerRow.createCell(4);
+            cell4.setCellValue("ЧТ");
+            cell4.setCellStyle(boldStyle);
+
+            Cell cell5 = headerRow.createCell(5);
+            cell5.setCellValue("ПТ");
+            cell5.setCellStyle(boldStyle);
 
             // Заполнение данных
             for (int i = 1; i <= 7; i++) {
                 Row row = sheet.createRow(i);
-                row.createCell(0).setCellValue(i + " урок");
+                Cell cell = row.createCell(0);
+                cell.setCellValue(i + " урок");
+                cell.setCellStyle(boldStyle);
                 row.setHeightInPoints(250);
                 for (int j = 1; j <= 5; j++) {
                     StringBuilder res = new StringBuilder();

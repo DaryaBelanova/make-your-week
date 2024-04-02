@@ -3,7 +3,6 @@ package ru.hse.makeYourWeek.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hse.makeYourWeek.entities.TimeSlot;
-import ru.hse.makeYourWeek.entities.TimeTableRecord;
 import ru.hse.makeYourWeek.model.TeacherGroupGraph;
 import ru.hse.makeYourWeek.repository.TimeSlotRepo;
 import ru.hse.makeYourWeek.repository.TimeTableRepo;

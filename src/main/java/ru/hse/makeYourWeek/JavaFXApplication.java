@@ -38,20 +38,7 @@ public class JavaFXApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        /*FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-
-        Parent root = fxWeaver.loadView(MainController.class);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();*/
-
         MainController mainController = applicationContext.getBean(MainController.class);
         mainController.loadView(stage);
-
-        /*TeacherGroupGraph graph = applicationContext.getBean(TeacherGroupGraph.class);
-        graph.build();
-        ColorService colorService = applicationContext.getBean(ColorService.class);*/
-        //colorService.colorizeTeacherGroupGraph(graph);
-        //colorService.printTimeTableToBD(graph);
     }
 }

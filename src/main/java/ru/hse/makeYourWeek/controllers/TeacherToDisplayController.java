@@ -73,8 +73,6 @@ public class TeacherToDisplayController {
         teacherTableView.getItems().clear();
         // заполняем таблицу данными
         teacherTableView.getItems().addAll(teacherToDisplayService.getAll());
-        /*teacherTableView.setItems(teachers);
-        teachers.addAll(teacherService.getAll());*/
     }
 
     public void onActionMainButtonClick(ActionEvent event) throws IOException {
@@ -235,7 +233,7 @@ public class TeacherToDisplayController {
                         newTeacherGroupAdjacencies.add(teacherGroupAdjacency);
                         used.add(teacherGroupAdjacency);
                     } catch (Exception e) {
-                        displayAlert("Ошибка обработки файла: " + e.getMessage(), "Ошибка!");
+                        displayAlert("Ошибка обработки файла", "Ошибка!");
                         return;
                     }
                 }

@@ -46,8 +46,8 @@ public class MainController {
     private void changeTab(Button onClick, String fxmlFileName) throws IOException{
         //Close current
         Stage stage = (Stage) onClick.getScene().getWindow();
-        // do what you have to do
         stage.close();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFileName));
         fxmlLoader.setControllerFactory(ApplicationContextHolder.getApplicationContext()::getBean);
         Parent root = (Parent) fxmlLoader.load();

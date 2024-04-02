@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.hse.makeYourWeek.controllers.MainController">
+    <tabs>
+        <Tab text="Главная">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Text layoutX="20.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1"
+                              wrappingWidth="57.3367919921875">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Text>
+                        <Text layoutX="20.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Внесите список   учителей" wrappingWidth="97.0738525390625"/>
+                        <Line endX="-116.79998779296875" endY="3.399993896484375" layoutX="224.0" layoutY="119.0"
+                              startX="-97.47869873046875" startY="-5.7071533203125"/>
+                        <Line endX="102.814208984375" endY="11.58575439453125" layoutX="23.0" layoutY="101.0"
+                              startX="85.0" startY="3.79998779296875"/>
+                        <Text layoutX="136.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 2"
+                              wrappingWidth="57.3367919921875">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Text>
+                        <Line endX="92.52130126953125" endY="0.2928466796875" layoutX="34.0" layoutY="113.0"
+                              startX="44.4000244140625"/>
+                        <Text layoutX="136.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Внесите список учебных групп" wrappingWidth="97.0738525390625"/>
+                        <Line endX="92.52130126953125" endY="0.2928466796875" layoutX="150.0" layoutY="112.0"
+                              startX="44.4000244140625"/>
+                        <Line endX="-116.79998779296875" endY="3.399993896484375" layoutX="340.0" layoutY="118.0"
+                              startX="-97.47869873046875" startY="-5.7071533203125"/>
+                        <Line endX="105.2283935546875" endY="9.292877197265625" layoutX="138.0" layoutY="102.0"
+                              startX="84.4000244140625" startY="0.399993896484375"/>
+                        <Text layoutX="252.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 3"
+                              wrappingWidth="57.3367919921875">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Text>
+                        <Text layoutX="251.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Присвойте учителям учебные группы" wrappingWidth="97.0738525390625"/>
+                        <Line endX="92.52130126953125" endY="0.2928466796875" layoutX="266.0" layoutY="112.0"
+                              startX="44.4000244140625"/>
+                        <Line endX="-116.79998779296875" endY="3.399993896484375" layoutX="455.0" layoutY="118.0"
+                              startX="-97.47869873046875" startY="-5.7071533203125"/>
+                        <Line endX="105.2283935546875" endY="13.99993896484375" layoutX="253.0" layoutY="98.0"
+                              startX="85.0" startY="3.399993896484375"/>
+                        <Text layoutX="367.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 4"
+                              wrappingWidth="57.3367919921875">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Text>
+                        <Text layoutX="367.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Внесите список кабинетов" wrappingWidth="97.0738525390625"/>
+                        <Text layoutX="487.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 4"
+                              wrappingWidth="57.3367919921875">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Text>
+                        <Line endX="92.52130126953125" endY="0.2928466796875" layoutX="387.0" layoutY="112.0"
+                              startX="44.4000244140625"/>
+                        <Line endX="-120.4000244140625" endY="-3.20001220703125" layoutX="582.0" layoutY="124.0"
+                              startX="-101.7716064453125" startY="-11.00006103515625"/>
+                        <Line endX="110.2283935546875" endY="19.292877197265625" layoutX="371.0" layoutY="93.0"
+                              startX="89.79998779296875" startY="8.600006103515625"/>
+                        <Text layoutX="487.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Сгенерируййте расписание" wrappingWidth="97.0738525390625"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Учителя">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <AnchorPane layoutX="359.0" layoutY="37.0">
+                            <children>
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="214.0"
+                                        text="Загрузить новый список учителей"/>
+                            </children>
+                        </AnchorPane>
+                        <ButtonBar layoutX="25.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0">
+                            <buttons>
+                                <Button mnemonicParsing="false" text="Отобразить данные из базы"/>
+                            </buttons>
+                        </ButtonBar>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Учебные группы">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button layoutX="48.0" layoutY="40.0" mnemonicParsing="false" text="Отобразить данные из базы"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Кабинеты">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <AnchorPane layoutX="359.0" layoutY="37.0">
+                            <children>
+                                <Button mnemonicParsing="false" text="Загрузить новый список кабинетов"/>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Расписание">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button layoutX="34.0" layoutY="43.0" mnemonicParsing="false" text="Сгенерировать расписание"/>
+                        <Button layoutX="392.0" layoutY="43.0" mnemonicParsing="false" text="Экспортировать данные"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

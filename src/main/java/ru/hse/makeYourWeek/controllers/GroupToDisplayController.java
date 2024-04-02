@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -133,7 +132,7 @@ public class GroupToDisplayController {
     private void uploadGroups() {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Загрузить файл");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
@@ -144,7 +143,7 @@ public class GroupToDisplayController {
                 while ((record = reader.readNext()) != null) {
                     try {
                         if (record.length != 2) {
-                            throw new Exception("Неверный формат заполнения файла");
+                            throw new Exception("Ошибка обработки файла");
                         }
                         Integer id = Integer.valueOf(record[0]);
                         String name = record[1];
@@ -241,7 +240,7 @@ public class GroupToDisplayController {
                         usedPairs.add(new GroupsAdjacencyPair(pair.getGroup2Id(), pair.getGroup1Id()));
                         newGroupsAdjacencyPairs.add(pair);
                     } catch (Exception e) {
-                        displayAlert("Ошибка обработки файла: " + e.getMessage(), "Ошибка!");
+                        displayAlert("Ошибка обработки файла", "Ошибка!");
                         return;
                     }
                 }

@@ -4,11 +4,7 @@ import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hse.makeYourWeek.entities.*;
-import ru.hse.makeYourWeek.model.GroupsGraph;
-import ru.hse.makeYourWeek.model.TeacherGroupGraph;
-import ru.hse.makeYourWeek.repository.GroupRepo;
 import ru.hse.makeYourWeek.repository.TeacherGroupRepo;
-import ru.hse.makeYourWeek.util.ApplicationContextHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

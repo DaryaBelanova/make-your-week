@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TitledPane text="Учебные группы" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.hse.makeYourWeek.outdated.RawGroupController">
+    <content>
+        <AnchorPane prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <HBox layoutX="2.0" layoutY="7.0" prefHeight="56.0" prefWidth="303.0">
+                    <children>
+                        <Button fx:id="mainButton" mnemonicParsing="false" onAction="#onActionMainButtonClick" text="Главная" />
+                        <Button fx:id="teachersButton" mnemonicParsing="false" onAction="#onActionTeachersButtonClick" text="Учителя" />
+                        <Button fx:id="timeTableButton" mnemonicParsing="false" onAction="#onActionTimeTableButtonClick" text="Расписание" />
+                    </children>
+                </HBox>
+                <GridPane layoutX="43.0" layoutY="63.0" prefHeight="42.0" prefWidth="523.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.5999755859375" minWidth="10.0" prefWidth="262.79998779296875" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="261.20001220703125" minWidth="10.0" prefWidth="261.20001220703125" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button mnemonicParsing="false" text="Загрузить новый список в базу" GridPane.columnIndex="1" />
+                    </children>
+                </GridPane>
+                <TitledPane animated="false" layoutX="98.0" layoutY="-116.0" text="untitled" />
+            <ScrollPane layoutX="6.0" layoutY="105.0" prefHeight="344.0" prefWidth="598.0">
+               <content>
+                  <GridPane prefHeight="1391.0" prefWidth="594.0" vgap="30.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.99998321533204" minWidth="0.0" prefWidth="0.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="440.0" minWidth="10.0" prefWidth="440.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="72.8" minHeight="10.0" prefHeight="62.39999084472656" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="73.80000915527343" minHeight="10.0" prefHeight="60.00000610351563" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="71.99998779296874" minHeight="0.0" prefHeight="64.79998779296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="83.99998168945311" minHeight="10.0" prefHeight="63.79998779296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="91.99997558593753" minHeight="10.0" prefHeight="68.0000061035156" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="82.99999389648437" minHeight="10.0" prefHeight="74.39999389648438" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="87.40001220703124" minHeight="9.599987792968761" prefHeight="73.5999633789063" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="71.19998779296873" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="87.800048828125" minHeight="8.399999999999977" prefHeight="68.79998779296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="77.60001220703123" minHeight="5.800024414062477" prefHeight="67.99997558593748" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="62.4000244140625" minHeight="10.0" prefHeight="62.4000244140625" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text fill="#7e7b7b" strokeType="OUTSIDE" strokeWidth="0.0" text="1 классы">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 классы" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 классы" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 классы" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5 классы" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6 классы" GridPane.rowIndex="5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7 классы" GridPane.rowIndex="6">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8 классы" GridPane.rowIndex="7">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9 классы" GridPane.rowIndex="8">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 классы" GridPane.rowIndex="9">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#7e7b7b" layoutX="10.0" layoutY="533.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11 классы" GridPane.rowIndex="10">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TilePane fx:id="tilePane1" hgap="10.0" prefHeight="57.0" prefWidth="434.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TilePane fx:id="tilePane2" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TilePane fx:id="tilePane3" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TilePane fx:id="tilePane4" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TilePane fx:id="tilePane5" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TilePane fx:id="tilePane6" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TilePane fx:id="tilePane7" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TilePane fx:id="tilePane8" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TilePane fx:id="tilePane9" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TilePane fx:id="tilePane10" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TilePane fx:id="tilePane11" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                     </children>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+            </children>
+        </AnchorPane>
+    </content>
+</TitledPane>
