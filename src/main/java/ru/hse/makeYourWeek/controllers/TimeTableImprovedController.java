@@ -8,7 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,47 +32,47 @@ import java.util.List;
 @Controller
 @FxmlView("timeTableImproved.fxml")
 public class TimeTableImprovedController {
-    public VBox mon1;
-    public VBox tue1;
-    public VBox wed1;
-    public VBox thu1;
-    public VBox fri1;
+    public GridPane mon1;
+    public GridPane tue1;
+    public GridPane wed1;
+    public GridPane thu1;
+    public GridPane fri1;
 
-    public VBox mon2;
-    public VBox tue2;
-    public VBox wed2;
-    public VBox thu2;
-    public VBox fri2;
+    public GridPane mon2;
+    public GridPane tue2;
+    public GridPane wed2;
+    public GridPane thu2;
+    public GridPane fri2;
 
-    public VBox mon3;
-    public VBox tue3;
-    public VBox wed3;
-    public VBox thu3;
-    public VBox fri3;
+    public GridPane mon3;
+    public GridPane tue3;
+    public GridPane wed3;
+    public GridPane thu3;
+    public GridPane fri3;
 
-    public VBox mon4;
-    public VBox tue4;
-    public VBox wed4;
-    public VBox thu4;
-    public VBox fri4;
+    public GridPane mon4;
+    public GridPane tue4;
+    public GridPane wed4;
+    public GridPane thu4;
+    public GridPane fri4;
 
-    public VBox mon5;
-    public VBox tue5;
-    public VBox wed5;
-    public VBox thu5;
-    public VBox fri5;
+    public GridPane mon5;
+    public GridPane tue5;
+    public GridPane wed5;
+    public GridPane thu5;
+    public GridPane fri5;
 
-    public VBox mon6;
-    public VBox tue6;
-    public VBox wed6;
-    public VBox thu6;
-    public VBox fri6;
+    public GridPane mon6;
+    public GridPane tue6;
+    public GridPane wed6;
+    public GridPane thu6;
+    public GridPane fri6;
 
-    public VBox mon7;
-    public VBox tue7;
-    public VBox wed7;
-    public VBox thu7;
-    public VBox fri7;
+    public GridPane mon7;
+    public GridPane tue7;
+    public GridPane wed7;
+    public GridPane thu7;
+    public GridPane fri7;
     public ComboBox<String> chooseTeacherComboBox;
 
 
@@ -142,7 +143,7 @@ public class TimeTableImprovedController {
 
     private void clearTimeTableView() {
         for (TimeSlot timeSlot : timeSlotService.getAll()) {
-            VBox slot = getVBoxByTimeSlot(timeSlot);
+            GridPane slot = getGridPaneByTimeSlot(timeSlot);
             slot.getChildren().clear();
         }
     }
@@ -151,15 +152,23 @@ public class TimeTableImprovedController {
         clearTimeTableView();
 
         List<TimeTableRecord> allRecords = timeTableService.getAll();
+
+        int rowIdx = 0;
+
         for (TimeTableRecord record : allRecords) {
             TeacherGroupAdjacency teacherGroupAdjacency = teacherGroupAdjacencyService.getById(record.getTeacherGroupId());
             Teacher teacher = teacherService.getById(teacherGroupAdjacency.getTeacherId());
             Group group = groupService.getById(teacherGroupAdjacency.getGroupId());
             TimeSlot timeSlot = timeSlotService.getById(record.getTimeSlotId());
 
-            VBox slot = getVBoxByTimeSlot(timeSlot);
-            Text text = new Text(teacher.getName() + " - " + group.getName());
-            slot.getChildren().add(text);
+
+            GridPane slot = getGridPaneByTimeSlot(timeSlot);
+            Text teacherName = new Text(teacher.getName());
+            Text groupName = new Text(group.getName());
+
+            slot.add(teacherName, 0, rowIdx);
+            slot.add(groupName, 1, rowIdx);
+            rowIdx++;
         }
     }
 
@@ -336,13 +345,13 @@ public class TimeTableImprovedController {
             Group group = groupService.getById(teacherGroupAdjacency.getGroupId());
             TimeSlot timeSlot = timeSlotService.getById(record.getTimeSlotId());
 
-            VBox slot = getVBoxByTimeSlot(timeSlot);
+            GridPane slot = getGridPaneByTimeSlot(timeSlot);
             Text text = new Text(group.getName());
-            slot.getChildren().add(text);
+            slot.add(text, 0, 0);
         }
     }
 
-    private VBox getVBoxByTimeSlot(TimeSlot timeSlot) {
+    private GridPane getGridPaneByTimeSlot(TimeSlot timeSlot) {
         if (timeSlot.getInDay().equals("Понедельник") && timeSlot.getLessonNumber() == 1) {
             return mon1;
         }

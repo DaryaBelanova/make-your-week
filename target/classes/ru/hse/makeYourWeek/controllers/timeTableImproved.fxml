@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
@@ -101,179 +100,353 @@
                             </font>
                         </Text>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <content>
-                                <VBox fx:id="mon1" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon1" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <content>
-                                <VBox fx:id="tue1" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue1" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="1">
-                            <content>
-                                <VBox fx:id="wed1" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
-                        </ScrollPane>
+                     <content>
+                        <GridPane fx:id="wed1" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content></ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="1">
-                            <content>
-                                <VBox fx:id="thu1" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu1" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="1">
-                            <content>
-                                <VBox fx:id="fri1" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri1" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <content>
-                                <VBox fx:id="mon2" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon2" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="2">
-                            <content>
-                                <VBox fx:id="tue2" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue2" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="2">
-                            <content>
-                                <VBox fx:id="wed2" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="wed2" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="2">
-                            <content>
-                                <VBox fx:id="thu2" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu2" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="2">
-                            <content>
-                                <VBox fx:id="fri2" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri2" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="3">
-                            <content>
-                                <VBox fx:id="mon3" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon3" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="3">
-                            <content>
-                                <VBox fx:id="tue3" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue3" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="3">
-                            <content>
-                                <VBox fx:id="wed3" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="wed3" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="3">
-                            <content>
-                                <VBox fx:id="thu3" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu3" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="3">
-                            <content>
-                                <VBox fx:id="fri3" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri3" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="4">
-                            <content>
-                                <VBox fx:id="mon4" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon4" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="4">
-                            <content>
-                                <VBox fx:id="tue4" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue4" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="4">
-                            <content>
-                                <VBox fx:id="wed4" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="wed4" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="4">
-                            <content>
-                                <VBox fx:id="thu4" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu4" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="4">
-                            <content>
-                                <VBox fx:id="fri4" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri4" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="5">
-                            <content>
-                                <VBox fx:id="mon5" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon5" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="5">
-                            <content>
-                                <VBox fx:id="tue5" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue5" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="5">
-                            <content>
-                                <VBox fx:id="wed5" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="wed5" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="5">
-                            <content>
-                                <VBox fx:id="thu5" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu5" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="5">
-                            <content>
-                                <VBox fx:id="fri5" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri5" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="6">
-                            <content>
-                                <VBox fx:id="mon6" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon6" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="6">
-                            <content>
-                                <VBox fx:id="tue6" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue6" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="6">
-                            <content>
-                                <VBox fx:id="wed6" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="wed6" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="6">
-                            <content>
-                                <VBox fx:id="thu6" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu6" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="6">
-                            <content>
-                                <VBox fx:id="fri6" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri6" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="7">
-                            <content>
-                                <VBox fx:id="mon7" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="mon7" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="7">
-                            <content>
-                                <VBox fx:id="tue7" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="tue7" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="7">
-                            <content>
-                                <VBox fx:id="wed7" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="wed7" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="4" GridPane.rowIndex="7">
-                            <content>
-                                <VBox fx:id="thu7" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="thu7" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                         <ScrollPane GridPane.columnIndex="5" GridPane.rowIndex="7">
-                            <content>
-                                <VBox fx:id="fri7" prefHeight="200.0" prefWidth="100.0" />
-                            </content>
+                     <content>
+                        <GridPane fx:id="fri7" hgap="10">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
                         </ScrollPane>
                     </children>
                 </GridPane>
