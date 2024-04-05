@@ -41,7 +41,7 @@ public class MainController {
         changeTab(groupsButton, "groupsToDisplay.fxml");
     }
     public void onActionTimeTableButtonClick(ActionEvent event) throws IOException {
-        changeTab(timeTableButton, "timeTable.fxml");
+        changeTab(timeTableButton, "timeTableImproved.fxml");
     }
     private void changeTab(Button onClick, String fxmlFileName) throws IOException{
         //Close current
