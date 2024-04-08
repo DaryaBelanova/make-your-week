@@ -4,6 +4,7 @@ D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\entities
 D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\repository\TimeTableRepo.java
 D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\controllers\TimeTableController.java
 D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\entities\GroupsAdjacencyPair.java
+D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\controllers\TimeTableImprovedController.java
 D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\services\TimeTableService.java
 D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\services\TeacherToDisplayService.java
 D:\se\prj\IdeaProjects\make_your_week\src\main\java\ru\hse\makeYourWeek\controllers\TeacherToDisplayController.java
